@@ -3,8 +3,94 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Recipe Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
-<h1>My Recipes!</h1>
+<body class="container">
+<h1 >My Recipes!</h1>
+<div th:each="recipe : ${recipes}">
+	<h2 th:text="${recipe?.description}"></h2>
+	<div class="row">
+		<p class="col-sm-4 font-weight-bold">Id</p>
+		<p class="col-sm-8" th:text="${recipe?.id}">1</p>
+	</div>
+
+	<div class="row">
+		<p class="col-sm-4 font-weight-bold">Preparation Time</p>
+		<p class="col-sm-8" th:text="${recipe?.prepTime}">10</p>
+	</div>
+
+	<div class="row">
+		<p class="col-sm-4 font-weight-bold">Servings</p>
+		<p class="col-sm-8" th:text="${recipe?.servings}">4</p>
+	</div>
+
+	<div class="row">
+		<p class="col-sm-4 font-weight-bold">Source</p>
+		<p class="col-sm-8" th:text="${recipe?.source}">Recipes</p>
+	</div>
+	
+	<div class="row">
+		<p class="col-sm-4 font-weight-bold">Url</p>
+		<p class="col-sm-8" th:text="${recipe?.url}">http://recetas.com</p>
+	</div>
+	
+	<div class="row">
+		<p class="col-sm-4 font-weight-bold">Directions</p>
+		<p class="col-sm-8" th:text="${recipe?.directions}">Servir</p>
+	</div>
+	
+	<div class="row">
+		<p class="col-sm-4 font-weight-bold">Difficulty</p>
+		<p class="col-sm-8" th:text="${recipe?.difficulty.name()}">Easy</p>
+	</div>
+	
+	<div class="row">
+		<p class="col-sm-4 font-weight-bold">Notes</p>
+		<p class="col-sm-8" th:utext="${#strings.replace(recipe?.notes.recipeNotes,'&#10;','&lt;br&gt;')}">Easy</p>
+	</div>
+		
+	<h3>Categories</h3>
+	<table id="categories" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody >
+			<tr th:each="cat : ${recipe?.categories}">
+				<td th:text="${cat?.id}">1</td>
+				<td th:text="${cat?.description}">American</td>
+			</tr>
+		</tbody>
+	
+	</table>
+	
+	<h3>Ingredients</h3>
+	<table id="ingredients" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Description</th>
+				<th>Amount</th>
+				<th>Unit</th>
+			</tr>
+		</thead>
+		<tbody >
+			<tr th:each="ing : ${recipe?.ingredients}">
+				<td th:text="${ing?.id}">1</td>
+				<td th:text="${ing?.description}">Tomato</td>
+				<td th:text="${ing?.amount}">2</td>
+				<td th:text="${ing?.unitOfMeasure.description}">Tablespoon</td>
+			</tr>
+		</tbody>
+	
+	</table>
+	
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
