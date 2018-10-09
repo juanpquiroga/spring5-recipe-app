@@ -2,6 +2,8 @@ package guru.springframework.bootstrap;
 
 import java.math.BigDecimal;
 
+import javax.transaction.Transactional;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 
 @Component
+@Transactional
 public class DataLoader implements CommandLineRunner {
 
 	private CategoryRepository categoryRepo;
@@ -32,6 +35,7 @@ public class DataLoader implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		guacamoleRecipe();
+		
 		spicyChickenRecipe();
 	}
 
