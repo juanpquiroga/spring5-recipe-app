@@ -12,10 +12,12 @@ import guru.springframework.domain.UnitOfMeasure;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import guru.springframework.services.RecipeServices;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by jt on 6/1/17.
  */
+@Slf4j
 @Controller
 public class IndexController {
 	
@@ -34,13 +36,15 @@ public class IndexController {
 
 	@RequestMapping({"", "/", "/index"})
     public String getIndexPage(Model model ){
+		log.info(">>>>>>>>>> IndexController Ingreso a getIndexPage");
 		Optional<Category> cat = categoryRepo.findByDescription("Italian");
-		System.out.println(String.format("La categoria es: %s", cat.get().getId()));
+		log.debug(String.format("La categoria es: %s", cat.get().getId()));
 		
 		Optional<UnitOfMeasure> measure = unitOfMeasureRepo.findByDescription("Cup");
-		System.out.println(String.format("La medida es: %s", measure.get().getId()));
+		log.debug(String.format("La medida es: %s", measure.get().getId()));
 		
 		model.addAttribute("recipes",recipeServices.getRecipes());
+		log.error("Despues de recuperar recetas");
         return "index";
     }
 }

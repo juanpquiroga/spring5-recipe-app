@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class RecipeServicesImpl implements RecipeServices {
 	private RecipeRepository recipeRepo;
@@ -21,9 +23,14 @@ public class RecipeServicesImpl implements RecipeServices {
 	 */
 	@Override
 	public Set<Recipe> getRecipes() {
+		log.info(">>>>>>>>>> RecipeServicesImpl Ingreso a getRecipes");
 		Set<Recipe> respuesta = new HashSet<>();
-		//recipeRepo.findAll().forEach(recipe->respuesta.add(recipe));
-		recipeRepo.findAll().iterator().forEachRemaining(respuesta::add);
+		
+		Iterable<Recipe> findAll = recipeRepo.findAll();
+		//Iterable<Recipe> findAll = recipeRepo.findEagerly();
+		log.info("Despues de recuperar de bd");
+		findAll.forEach(recipe->respuesta.add(recipe));
+		//recipeRepo.findAll().iterator().forEachRemaining(respuesta::add);
 		return respuesta;
 	}
 }

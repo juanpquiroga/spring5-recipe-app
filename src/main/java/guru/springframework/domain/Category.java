@@ -3,15 +3,23 @@ package guru.springframework.domain;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString(exclude="recipes")
+@EqualsAndHashCode(exclude="recipes")
 public class Category {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -19,6 +27,6 @@ public class Category {
 	
 	private String description;
 	
-	@ManyToMany(mappedBy="categories")
+	@ManyToMany(mappedBy="categories",fetch=FetchType.LAZY)
 	private Set<Recipe> recipes;
 }
